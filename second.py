@@ -73,3 +73,22 @@ def exact_hessian(loss, parameters):
         H_i = parameters_to_vector(H_i)
         hessian[i] = H_i
     return hessian
+
+def exact_hessian(loss, parameters):
+    gradient = grad(
+        loss,
+        parameters,
+        create_graph=True,
+        retain_graph=True
+    )
+    gradient = parameters_to_vector(gradient)
+    hessian = torch.zeros((gradient.numel(), gradient.numel()))
+    for i in range(gradient.numel()):
+        H_i = grad(
+            gradient[i],
+            parameters,
+            retain_graph=True
+        )
+        H_i = parameters_to_vector(H_i)
+        hessian[i] = H_i
+    return hessian
