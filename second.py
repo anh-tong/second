@@ -1,4 +1,5 @@
 from typing import Tuple
+
 import torch
 from torch.autograd import grad
 from torch.nn.utils import parameters_to_vector
@@ -75,6 +76,7 @@ def exact_hessian(loss, parameters):
     return hessian
 
 def exact_hessian(loss, parameters):
+    """Compute exact hesssian"""
     gradient = grad(
         loss,
         parameters,
